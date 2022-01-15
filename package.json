@@ -1,0 +1,26 @@
+{
+  "name": "icons-fasaha",
+  "version": "1.0.0",
+  "description": "dedicated icons for cultural central africa web site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mongulu-cm/icons-fasaha.git"
+  },
+  "keywords": [
+    "africa",
+    "fasaha",
+    "mongulu",
+    "tropical",
+    "pyramid"
+  ],
+  "author": "ptchepga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mongulu-cm/icons-fasaha/issues"
+  },
+  "homepage": "https://github.com/mongulu-cm/icons-fasaha#readme"
+}

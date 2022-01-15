@@ -1,0 +1,30 @@
+/* -- global class -- */
+.fa-1X {
+    font-size: 1rem;
+}
+.fa-2X {
+    font-size: 2rem;
+}
+
+.fa-3X {
+    font-size: 3rem;
+}
+
+.fa-3X {
+    font-size: 3rem;
+}
+
+.fa-4X {
+    font-size: 4rem;
+}
+
+.fa-5X {
+    font-size: 5rem;
+}
+
+:root {
+    --green: #3FAE71;
+    --yellow: #F2F966;
+    --red: #FF5733;
+    --marron: #986116;
+}
