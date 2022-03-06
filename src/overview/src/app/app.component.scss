@@ -1,0 +1,23 @@
+.content {
+    height: 500px;
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.category {
+    border: 0.2rem solid;
+    flex-basis: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icons {
+    border: 0.2rem solid;
+    flex-basis: 70%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

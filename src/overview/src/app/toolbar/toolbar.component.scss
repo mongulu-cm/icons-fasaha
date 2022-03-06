@@ -1,0 +1,11 @@
+@import '../../utilities/variable.scss';
+.content {
+    height: 100px;
+    background-color: $marron;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: $font-color;
+}

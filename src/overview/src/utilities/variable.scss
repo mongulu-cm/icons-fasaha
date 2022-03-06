@@ -1,0 +1,6 @@
+
+$marron : rgb(230, 141, 41);
+$font-color: rgb(48, 41, 31);
+:root{
+    -fs-marron : --var($marron);
+}
