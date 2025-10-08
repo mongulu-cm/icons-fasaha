@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icons Fasaha - Exemple</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+        
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .icon-card {
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .icon-card:hover {
+            border-color: #8B4513;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 69, 19, 0.2);
+        }
+        
+        .icon-preview {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .icon-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .icon-description {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        .colors-section {
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .color-item {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: white;
+        }
+        
+        .color-preview {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .color-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .color-code {
+            font-family: monospace;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .usage-section {
+            background: #2c3e50;
+            color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+        }
+        
+        .code-block {
+            background: #34495e;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        
+        .highlight {
+            color: #f39c12;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Icons Fasaha</h1>
+        <p class="subtitle">Icônes artistiques africaines pour le web</p>
+        
+        <div class="icons-grid">
+            <div class="icon-card">
+                <div class="icon-preview">👑</div>
+                <div class="icon-name">Chefferie</div>
+                <div class="icon-description">
+                    Symbole de l'autorité traditionnelle et de la hiérarchie sociale dans les sociétés africaines.
+                </div>
+            </div>
+            
+            <div class="icon-card">
+                <div class="icon-preview">🏛️</div>
+                <div class="icon-name">Emblème Foumban</div>
+                <div class="icon-description">
+                    Représentation artistique des symboles royaux du royaume Bamoun.
+                </div>
+            </div>
+            
+            <div class="icon-card">
+                <div class="icon-preview">🎭</div>
+                <div class="icon-name">Masque Tukah</div>
+                <div class="icon-description">
+                    Masque traditionnel utilisé dans les cérémonies et rituels culturels.
+                </div>
+            </div>
+        </div>
+        
+        <div class="colors-section">
+            <h2 style="color: #2c3e50; margin-top: 0;">🎨 Palette de couleurs africaines</h2>
+            <p style="color: #7f8c8d;">Couleurs recommandées pour respecter l'identité culturelle des icônes</p>
+            
+            <div class="colors-grid">
+                <div class="color-item">
+                    <div class="color-preview" style="background: #8B4513;"></div>
+                    <div class="color-name">Terre cuite</div>
+                    <div class="color-code">#8B4513</div>
+                </div>
+                
+                <div class="color-item">
+                    <div class="color-preview" style="background: #DAA520;"></div>
+                    <div class="color-name">Or</div>
+                    <div class="color-code">#DAA520</div>
+                </div>
+                
+                <div class="color-item">
+                    <div class="color-preview" style="background: #B87333;"></div>
+                    <div class="color-name">Cuivre</div>
+                    <div class="color-code">#B87333</div>
+                </div>
+                
+                <div class="color-item">
+                    <div class="color-preview" style="background: #CD853F;"></div>
+                    <div class="color-name">Argile</div>
+                    <div class="color-code">#CD853F</div>
+                </div>
+                
+                <div class="color-item">
+                    <div class="color-preview" style="background: #CC7722;"></div>
+                    <div class="color-name">Ocre</div>
+                    <div class="color-code">#CC7722</div>
+                </div>
+                
+                <div class="color-item">
+                    <div class="color-preview" style="background: #CD7F32;"></div>
+                    <div class="color-name">Bronze</div>
+                    <div class="color-code">#CD7F32</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="usage-section">
+            <h2 style="margin-top: 0;">💻 Utilisation</h2>
+            
+            <h3>Installation</h3>
+            <div class="code-block">
+npm <span class="highlight">install</span> icons-fasaha
+            </div>
+            
+            <h3>Import et utilisation</h3>
+            <div class="code-block">
+<span class="highlight">import</span> { Chefferie, Emblemefoumban, Masktukah } <span class="highlight">from</span> <span class="highlight">'icons-fasaha'</span>;
+
+<span class="highlight">function</span> App() {
+  <span class="highlight">return</span> (
+    &lt;div&gt;
+      &lt;Chefferie size={<span class="highlight">32</span>} color=<span class="highlight">"#8B4513"</span> /&gt;
+      &lt;Emblemefoumban size={<span class="highlight">24</span>} color=<span class="highlight">"#DAA520"</span> /&gt;
+      &lt;Masktukah size={<span class="highlight">28</span>} color=<span class="highlight">"#B87333"</span> /&gt;
+    &lt;/div&gt;
+  );
+}
+            </div>
+            
+            <h3>Propriétés disponibles</h3>
+            <div class="code-block">
+&lt;Chefferie 
+  size={<span class="highlight">32</span>}                    <span class="highlight">// Taille en pixels</span>
+  color=<span class="highlight">"#8B4513"</span>              <span class="highlight">// Couleur</span>
+  className=<span class="highlight">"my-icon"</span>          <span class="highlight">// Classe CSS</span>
+  onClick={<span class="highlight">() =&gt; console.log('Cliqué!')</span>}  <span class="highlight">// Callback</span>
+/&gt;
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Créé avec ❤️ pour la communauté africaine et tous ceux qui apprécient l'art traditionnel</p>
+            <p>
+                <a href="https://github.com/mongulu-cm/icons-fasaha" style="color: #3498db;">GitHub</a> • 
+                <a href="https://www.npmjs.com/package/icons-fasaha" style="color: #3498db;">npm</a> • 
+                <a href="https://mongulu-cm.github.io/icons-fasaha/" style="color: #3498db;">Documentation</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
