@@ -1,9 +1,28 @@
 {
   "name": "icons-fasaha",
   "version": "1.0.0",
-  "description": "dedicated icons for cultural central africa web site",
-  "main": "index.js",
+  "description": "Icônes artistiques africaines pour le web - Librairie d'icônes dédiées à la culture d'Afrique centrale",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "svgs",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "npm run svg:data && npm run search:update && vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "cloudflare:test": "node scripts/test-cloudflare.js",
+    "cloudflare:debug": "node scripts/debug-cloudflare.js",
+    "cloudflare:setup": "cp cloudflare-config.example.js cloudflare-config.js",
+    "cloudflare:upload": "node scripts/upload-to-cloudflare.js",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,16 +30,54 @@
     "url": "git+https://github.com/mongulu-cm/icons-fasaha.git"
   },
   "keywords": [
+    "icons",
     "africa",
+    "african",
+    "cultural",
+    "artistic",
+    "svg",
+    "react",
+    "vue",
     "fasaha",
     "mongulu",
     "tropical",
-    "pyramid"
+    "pyramid",
+    "cameroon",
+    "central-africa"
   ],
   "author": "ptchepga",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mongulu-cm/icons-fasaha/issues"
   },
-  "homepage": "https://github.com/mongulu-cm/icons-fasaha#readme"
+  "homepage": "https://github.com/mongulu-cm/icons-fasaha#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^4.6.1",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^5.3.2",
+    "vitepress": "^1.0.0-rc.31"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "tslib": "^2.8.1"
+  }
 }

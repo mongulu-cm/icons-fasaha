@@ -1,0 +1,76 @@
+{
+  "icons": [
+    {
+      "name": "Baobab",
+      "description": "Arbre emblématique d'Afrique, symbole de longévité et de protection.",
+      "category": "Nature",
+      "tags": [
+        "baobab",
+        "arbre",
+        "afrique",
+        "longévité",
+        "protection"
+      ],
+      "culturalContext": "Le baobab est un arbre sacré dans de nombreuses cultures africaines",
+      "preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" style=\"width: 32px; height: 32px;\"><path d=\"M12 2v20\"/> <path d=\"M8 8h8\"/> <path d=\"M8 12h8\"/> <path d=\"M8 16h8\"/> <circle cx=\"12\" cy=\"4\" r=\"2\"/> <path d=\"M6 20h12\"/> <path d=\"M8 20v-4\"/> <path d=\"M16 20v-4\"/> <path d=\"M10 8v8\"/> <path d=\"M14 8v8\"/></svg>",
+      "usageExample": "import { Baobab } from 'icons-fasaha';\n\n<Baobab size={24} color=\"#228B22\" />"
+    },
+    {
+      "name": "Drum",
+      "description": "Tambour traditionnel africain, instrument de communication et de célébration.",
+      "category": "Musique",
+      "tags": [
+        "tambour",
+        "musique",
+        "tradition",
+        "communication",
+        "célébration"
+      ],
+      "culturalContext": "Le tambour est central dans la musique et la communication africaines",
+      "preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" style=\"width: 32px; height: 32px;\"><ellipse cx=\"12\" cy=\"8\" rx=\"8\" ry=\"3\"/> <ellipse cx=\"12\" cy=\"16\" rx=\"8\" ry=\"3\"/> <path d=\"M4 8v8\"/> <path d=\"M20 8v8\"/> <path d=\"M8 8v8\"/> <path d=\"M16 8v8\"/> <circle cx=\"12\" cy=\"8\" r=\"1\"/> <circle cx=\"12\" cy=\"16\" r=\"1\"/></svg>",
+      "usageExample": "import { Drum } from 'icons-fasaha';\n\n<Drum size={28} color=\"#B87333\" />"
+    },
+    {
+      "name": "Elephant",
+      "description": "Icône d'éléphant africain, symbole de force et de sagesse.",
+      "category": "Nature",
+      "tags": [
+        "éléphant",
+        "afrique",
+        "nature",
+        "force",
+        "sagesse"
+      ],
+      "culturalContext": "L'éléphant est un symbole important dans la culture africaine",
+      "preview": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" style=\"width: 32px; height: 32px;\"><path d=\"M3 12h18\"/> <path d=\"M3 6h18\"/> <path d=\"M3 18h18\"/> <circle cx=\"6\" cy=\"6\" r=\"2\"/> <circle cx=\"6\" cy=\"12\" r=\"2\"/> <circle cx=\"6\" cy=\"18\" r=\"2\"/> <circle cx=\"18\" cy=\"6\" r=\"2\"/> <circle cx=\"18\" cy=\"12\" r=\"2\"/> <circle cx=\"18\" cy=\"18\" r=\"2\"/> <path d=\"M9 6h6\"/> <path d=\"M9 12h6\"/> <path d=\"M9 18h6\"/></svg>",
+      "usageExample": "import { Elephant } from 'icons-fasaha';\n\n<Elephant size={32} color=\"#8B4513\" />"
+    }
+  ],
+  "categories": [
+    {
+      "id": "Nature",
+      "name": "Nature"
+    },
+    {
+      "id": "Musique",
+      "name": "Musique"
+    }
+  ],
+  "tags": [
+    "afrique",
+    "arbre",
+    "baobab",
+    "communication",
+    "célébration",
+    "force",
+    "longévité",
+    "musique",
+    "nature",
+    "protection",
+    "sagesse",
+    "tambour",
+    "tradition",
+    "éléphant"
+  ],
+  "lastUpdated": "2025-10-08T21:39:54.695Z"
+}

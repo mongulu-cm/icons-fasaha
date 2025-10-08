@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icons Fasaha - Démonstration du système SVG</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            background: #f8f9fa;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .step {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .step h3 {
+            margin: 0 0 1rem 0;
+            color: #2c3e50;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .highlight {
+            color: #f39c12;
+        }
+        
+        .command {
+            background: #34495e;
+            color: #2ecc71;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        
+        .icon-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .icon-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .icon-preview {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .icon-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .icon-description {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            color: #2c3e50;
+            margin: 0 0 1rem 0;
+        }
+        
+        .feature p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Système de gestion SVG</h1>
+        <p class="subtitle">Transformez vos fichiers SVG en composants React automatiquement</p>
+        
+        <div class="section">
+            <h2>🔄 Workflow de conversion</h2>
+            <div class="workflow">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Ajouter un SVG</h3>
+                    <p>Placez votre fichier SVG dans le répertoire <code>assets/svg/</code> ou utilisez le gestionnaire interactif.</p>
+                    <div class="command">npm run svg:add</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Traiter les fichiers</h3>
+                    <p>Le script nettoie le contenu SVG et génère automatiquement les composants React.</p>
+                    <div class="command">npm run svg:process</div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Utiliser les composants</h3>
+                    <p>Importez et utilisez vos icônes dans vos applications React.</p>
+                    <div class="code-block">
+<span class="highlight">import</span> { Elephant, Baobab } <span class="highlight">from</span> <span class="highlight">'icons-fasaha'</span>;
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🛠️ Scripts disponibles</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📝</div>
+                    <h3>Gestionnaire interactif</h3>
+                    <p>Interface en ligne de commande pour ajouter, lister et supprimer des fichiers SVG facilement.</p>
+                    <div class="command">npm run svg:add</div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Traitement en lot</h3>
+                    <p>Traite tous les fichiers SVG du répertoire et génère les composants React correspondants.</p>
+                    <div class="command">npm run svg:process</div>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">📋</div>
+                    <h3>Fichier d'exemple</h3>
+                    <p>Crée un fichier SVG d'exemple pour commencer rapidement.</p>
+                    <div class="command">npm run svg:example</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🎯 Icônes générées automatiquement</h2>
+            <div class="icon-demo">
+                <div class="icon-item">
+                    <div class="icon-preview">🐘</div>
+                    <div class="icon-name">Elephant</div>
+                    <div class="icon-description">Icône d'éléphant générée à partir d'elephant.svg</div>
+                </div>
+                
+                <div class="icon-item">
+                    <div class="icon-preview">🌳</div>
+                    <div class="icon-name">Baobab</div>
+                    <div class="icon-description">Icône de baobab générée à partir de baobab.svg</div>
+                </div>
+                
+                <div class="icon-item">
+                    <div class="icon-preview">🥁</div>
+                    <div class="icon-name">Drum</div>
+                    <div class="icon-description">Icône de tambour générée à partir de drum.svg</div>
+                </div>
+                
+                <div class="icon-item">
+                    <div class="icon-preview">👑</div>
+                    <div class="icon-name">Chefferie</div>
+                    <div class="icon-description">Icône de chefferie traditionnelle</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📁 Structure des répertoires</h2>
+            <div class="code-block">
+icons-fasaha/
+├── assets/
+│   └── svg/                    <span class="highlight"># Fichiers SVG sources</span>
+│       ├── elephant.svg
+│       ├── baobab.svg
+│       ├── drum.svg
+│       └── ...
+├── src/
+│   ├── icons/                  <span class="highlight"># Composants React générés</span>
+│   │   ├── Elephant.tsx
+│   │   ├── Baobab.tsx
+│   │   ├── Drum.tsx
+│   │   └── index.ts
+│   └── utils/
+│       ├── svgToComponent.ts   <span class="highlight"># Utilitaires de conversion</span>
+│       └── svgConfig.ts        <span class="highlight"># Configuration</span>
+└── scripts/
+    ├── process-svg-assets.js   <span class="highlight"># Traitement en lot</span>
+    └── add-svg.js             <span class="highlight"># Gestionnaire interactif</span>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>💡 Exemple d'utilisation</h2>
+            <div class="code-block">
+<span class="highlight">// 1. Ajouter un fichier SVG</span>
+<span class="highlight">//</span> Placez votre fichier dans assets/svg/mon-icone.svg
+
+<span class="highlight">// 2. Traiter les SVG</span>
+npm run svg:process
+
+<span class="highlight">// 3. Utiliser dans votre code</span>
+<span class="highlight">import</span> { MonIcone } <span class="highlight">from</span> <span class="highlight">'icons-fasaha'</span>;
+
+<span class="highlight">function</span> App() {
+  <span class="highlight">return</span> (
+    &lt;MonIcone 
+      size={<span class="highlight">32</span>} 
+      color=<span class="highlight">"#8B4513"</span> 
+    /&gt;
+  );
+}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🎨 Système de gestion SVG pour Icons Fasaha</p>
+            <p>
+                <a href="https://github.com/mongulu-cm/icons-fasaha" style="color: #3498db;">GitHub</a> • 
+                <a href="https://www.npmjs.com/package/icons-fasaha" style="color: #3498db;">npm</a> • 
+                <a href="https://mongulu-cm.github.io/icons-fasaha/" style="color: #3498db;">Documentation</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+# Source files
+src/
+scripts/
+docs/
+.vitepress/
+
+# Development files
+rollup.config.js
+tsconfig.json
+*.config.js
+
+# Documentation
+README.md
+LICENSE
+
+# Development dependencies
+node_modules/
+*.log
+.DS_Store
+.vscode/
+.idea/
+
+# Build artifacts
+dist/
+*.tsbuildinfo
+
+# Test files
+__tests__/
+*.test.*
+*.spec.*
+
+# Git
+.git/
+.gitignore
