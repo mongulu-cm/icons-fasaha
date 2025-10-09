@@ -1,0 +1,8 @@
+{
+  "name": "galerie-photo-cameroun",
+  "compatibility_date": "2025-08-20",
+  "assets": {
+    "directory": "./docs/.vitepress/dist"
+  }
+}
+
