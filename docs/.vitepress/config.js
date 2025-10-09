@@ -62,9 +62,9 @@ export default {
           text: 'Icônes',
           items: [
             { text: 'Toutes les icônes', link: '/icons/' },
-            { text: 'Chefferie', link: '/icons/chefferie' },
-            { text: 'Emblème Foumban', link: '/icons/embleme-foumban' },
-            { text: 'Masque Tukah', link: '/icons/masque-tukah' }
+            { text: 'Chefferie', link: '/icons/chefferie.html' },
+            { text: 'Emblème Foumban', link: '/icons/embleme-foumban.html' },
+            { text: 'Masque Tukah', link: '/icons/masque-tukah.html' }
           ]
         }
       ]

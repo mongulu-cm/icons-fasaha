@@ -16,7 +16,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "docs:dev": "vitepress dev docs",
-    "docs:build": "npm run svg:data && npm run search:update && vitepress build docs",
+    "docs:build": "node scripts/generate-icon-data.js && node scripts/update-search-data.js && vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "cloudflare:test": "node scripts/test-cloudflare.js",
     "cloudflare:debug": "node scripts/debug-cloudflare.js",

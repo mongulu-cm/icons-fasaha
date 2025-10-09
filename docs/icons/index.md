@@ -19,7 +19,7 @@ import { Chefferie } from 'icons-fasaha';
 <Chefferie size={32} color="#8B4513" />
 ```
 
-[Voir les détails →](/icons/chefferie)
+[Voir les détails →](/icons/chefferie.html)
 
 ---
 
@@ -40,7 +40,7 @@ import { Emblemefoumban } from 'icons-fasaha';
 <Emblemefoumban size={32} color="#DAA520" />
 ```
 
-[Voir les détails →](/icons/embleme-foumban)
+[Voir les détails →](/icons/embleme-foumban.html)
 
 ---
 
@@ -61,7 +61,7 @@ import { Masktukah } from 'icons-fasaha';
 <Masktukah size={32} color="#B87333" />
 ```
 
-[Voir les détails →](/icons/masque-tukah)
+[Voir les détails →](/icons/masque-tukah.html)
 
 ---
 
@@ -143,4 +143,4 @@ N'oubliez pas d'ajouter des attributs d'accessibilité :
 
 - [Apprendre à utiliser les icônes](/guide/usage)
 - [Découvrir les options de personnalisation](/guide/customization)
-- [Voir des exemples d'intégration](/guide/examples)
+- [Voir des exemples d'intégration](/guide/svg-examples)
