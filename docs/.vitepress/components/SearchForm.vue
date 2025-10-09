@@ -862,14 +862,37 @@ const clearAllFilters = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f9fa;
-  border-radius: 8px;
+  position: relative;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 6px 16px rgba(15, 23, 42, 0.12);
   transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.icon-preview::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: linear-gradient(
+    45deg,
+    rgba(148, 163, 184, 0.18) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(148, 163, 184, 0.18) 50%,
+    rgba(148, 163, 184, 0.18) 75%,
+    transparent 75%
+  );
+  background-size: 12px 12px;
+  opacity: 0.55;
 }
 
 .icon-item:hover .icon-preview {
-  background: white;
-  transform: scale(1.1);
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  transform: scale(1.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 10px 24px rgba(15, 23, 42, 0.2);
 }
 
 .icon-svg {
@@ -879,32 +902,32 @@ const clearAllFilters = () => {
   align-items: center;
   justify-content: center;
   padding: 8px;
+  position: relative;
+  z-index: 1;
 }
 
-.icon-svg :deep(svg) {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  color: var(--vp-c-text-1);
-  fill: currentColor;
-  display: block;
+.dark .search-form .icon-preview {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.92) 0%, rgba(17, 24, 39, 0.94) 100%);
+  border-color: rgba(148, 163, 184, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 12px 28px rgba(0, 0, 0, 0.45);
 }
 
-.icon-svg :deep(.normalized-svg) {
-  width: 100% !important;
-  height: 100% !important;
+.dark .search-form .icon-preview::before {
+  background-image: linear-gradient(
+    45deg,
+    rgba(148, 163, 184, 0.28) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(148, 163, 184, 0.28) 50%,
+    rgba(148, 163, 184, 0.28) 75%,
+    transparent 75%
+  );
+  opacity: 0.45;
 }
 
-.icon-svg :deep(svg path),
-.icon-svg :deep(svg circle),
-.icon-svg :deep(svg rect),
-.icon-svg :deep(svg ellipse),
-.icon-svg :deep(svg line),
-.icon-svg :deep(svg polyline),
-.icon-svg :deep(svg polygon) {
-  vector-effect: non-scaling-stroke;
+.dark .search-form .icon-item:hover .icon-preview {
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.95) 0%, rgba(23, 30, 44, 0.96) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 30px rgba(0, 0, 0, 0.55);
 }
 
 .icon-name-label {
@@ -1096,30 +1119,8 @@ const clearAllFilters = () => {
   padding: 20px;
 }
 
-.icon-display :deep(svg) {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  color: var(--vp-c-text-1);
-  fill: currentColor;
-  transition: all 0.3s ease;
-  display: block;
-}
-
 .large-icon-preview.large-size .icon-display {
   padding: 40px;
-}
-
-.icon-display :deep(svg path),
-.icon-display :deep(svg circle),
-.icon-display :deep(svg rect),
-.icon-display :deep(svg ellipse),
-.icon-display :deep(svg line),
-.icon-display :deep(svg polyline),
-.icon-display :deep(svg polygon) {
-  vector-effect: non-scaling-stroke;
 }
 
 .size-toggle-button {
