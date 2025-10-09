@@ -14,6 +14,10 @@ export class CloudflareIcons {
     this.baseUrl = CLOUDFLARE_CONFIG.baseUrl
     this.availableIcons = CLOUDFLARE_CONFIG.availableIcons
     this.headers = CLOUDFLARE_CONFIG.requestHeaders
+    this.svgPromises = new Map()
+    this.svgCache = new Map()
+    this.iconsCache = null
+    this.iconsPromise = null
   }
 
   /**
@@ -31,57 +35,95 @@ export class CloudflareIcons {
    * @returns {Promise<string>} Contenu SVG
    */
   async fetchIconSvg(iconName) {
-    try {
-      const url = this.getIconUrl(iconName)
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: this.headers
-      })
-
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`)
-      }
-
-      return await response.text()
-    } catch (error) {
-      console.error(`Erreur lors du chargement de l'icône ${iconName} depuis Cloudflare:`, error)
-      return null
+    if (this.svgCache.has(iconName)) {
+      return this.svgCache.get(iconName)
     }
+
+    if (this.svgPromises.has(iconName)) {
+      return this.svgPromises.get(iconName)
+    }
+
+    const fetchTask = (async () => {
+      try {
+        const url = this.getIconUrl(iconName)
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: this.headers
+        })
+
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`)
+        }
+
+        const svgText = await response.text()
+        this.svgCache.set(iconName, svgText)
+        return svgText
+      } catch (error) {
+        console.error(`Erreur lors du chargement de l'icône ${iconName} depuis Cloudflare:`, error)
+        this.svgPromises.delete(iconName)
+        this.svgCache.delete(iconName)
+        return null
+      } finally {
+        this.svgPromises.delete(iconName)
+      }
+    })()
+
+    this.svgPromises.set(iconName, fetchTask)
+    return fetchTask
   }
 
   /**
    * Charge toutes les icônes depuis Cloudflare R2
+   * @param {{ forceRefresh?: boolean }} [options]
    * @returns {Promise<Array>} Liste des icônes avec leurs métadonnées
    */
-  async loadAllIcons() {
+  async loadAllIcons(options = {}) {
+    const { forceRefresh = false } = options
+
+    if (!forceRefresh && this.iconsCache) {
+      return this.iconsCache
+    }
+
+    if (!forceRefresh && this.iconsPromise) {
+      return this.iconsPromise
+    }
+
     try {
       console.log('🔗 Chargement des icônes depuis Cloudflare R2...')
       console.log(`📦 Bucket: ${this.bucketName}`)
       console.log(`🔗 Base URL: ${this.baseUrl}`)
 
-      const icons = []
+      const uniqueIcons = Array.from(new Set(this.availableIcons || []))
 
-      // Charger chaque icône disponible
-      for (const iconName of this.availableIcons) {
-        console.log(`📥 Chargement de ${iconName}.svg...`)
+      const loadTask = Promise.all(
+        uniqueIcons.map(async (iconName) => {
+          console.log(`📥 Chargement de ${iconName}.svg...`)
+          const svgContent = await this.fetchIconSvg(iconName)
 
-        const svgContent = await this.fetchIconSvg(iconName)
+          if (svgContent) {
+            console.log(`✅ ${iconName}.svg chargé (${svgContent.length} caractères)`)
+            return this.generateMetadata(iconName, svgContent)
+          }
 
-        if (svgContent) {
-          console.log(`✅ ${iconName}.svg chargé (${svgContent.length} caractères)`)
-
-          // Générer les métadonnées basées sur le nom
-          const metadata = this.generateMetadata(iconName, svgContent)
-          icons.push(metadata)
-        } else {
           console.warn(`⚠️  Impossible de charger ${iconName}.svg depuis Cloudflare`)
-        }
-      }
+          return null
+        })
+      ).then((results) => {
+        const icons = results.filter(Boolean)
+        console.log(`🎉 ${icons.length} icônes chargées avec succès depuis Cloudflare R2`)
+        this.iconsCache = icons
+        this.iconsPromise = null
+        return icons
+      }).catch((error) => {
+        this.iconsPromise = null
+        throw error
+      })
 
-      console.log(`🎉 ${icons.length} icônes chargées avec succès depuis Cloudflare R2`)
-      return icons
+      this.iconsPromise = loadTask
+      return await loadTask
     } catch (error) {
       console.error('❌ Erreur lors du chargement des icônes depuis Cloudflare:', error)
+      this.iconsPromise = null
       return []
     }
   }
@@ -248,8 +290,8 @@ export class CloudflareIcons {
 export const cloudflareIcons = new CloudflareIcons()
 
 // Fonction d'aide pour charger les icônes depuis Cloudflare
-export async function loadIconsFromCloudflare() {
-  return await cloudflareIcons.loadAllIcons()
+export async function loadIconsFromCloudflare(options) {
+  return await cloudflareIcons.loadAllIcons(options)
 }
 
 // Fonction d'aide pour tester la connexion
