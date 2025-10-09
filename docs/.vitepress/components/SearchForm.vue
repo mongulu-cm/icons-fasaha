@@ -864,7 +864,7 @@ const clearAllFilters = () => {
   justify-content: center;
   position: relative;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.55) 45%, rgba(148, 163, 184, 0.18) 100%);
   border: 1px solid rgba(15, 23, 42, 0.08);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 6px 16px rgba(15, 23, 42, 0.12);
   transition: all 0.3s ease;
@@ -876,21 +876,28 @@ const clearAllFilters = () => {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: linear-gradient(
-    45deg,
-    rgba(148, 163, 184, 0.18) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(148, 163, 184, 0.18) 50%,
-    rgba(148, 163, 184, 0.18) 75%,
-    transparent 75%
-  );
-  background-size: 12px 12px;
-  opacity: 0.55;
+  background-image:
+    linear-gradient(to right,
+      rgba(15, 23, 42, 0.32) 0%,
+      rgba(15, 23, 42, 0.24) 18%,
+      rgba(15, 23, 42, 0.08) 38%,
+      rgba(15, 23, 42, 0) 62%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(148, 163, 184, 0.16) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(148, 163, 184, 0.16) 50%,
+      rgba(148, 163, 184, 0.16) 75%,
+      transparent 75%
+    );
+  background-size: 100% 100%, 12px 12px;
+  background-repeat: no-repeat, repeat;
 }
 
 .icon-item:hover .icon-preview {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.75) 0%, rgba(30, 41, 59, 0.45) 45%, rgba(148, 163, 184, 0.3) 100%);
   transform: scale(1.08);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 10px 24px rgba(15, 23, 42, 0.2);
 }
@@ -907,22 +914,30 @@ const clearAllFilters = () => {
 }
 
 .dark .search-form .icon-preview {
-  background: linear-gradient(135deg, rgba(31, 41, 55, 0.92) 0%, rgba(17, 24, 39, 0.94) 100%);
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.92) 0%, rgba(23, 30, 44, 0.7) 40%, rgba(71, 85, 105, 0.28) 100%);
   border-color: rgba(148, 163, 184, 0.35);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 12px 28px rgba(0, 0, 0, 0.45);
 }
 
 .dark .search-form .icon-preview::before {
-  background-image: linear-gradient(
-    45deg,
-    rgba(148, 163, 184, 0.28) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(148, 163, 184, 0.28) 50%,
-    rgba(148, 163, 184, 0.28) 75%,
-    transparent 75%
-  );
-  opacity: 0.45;
+  background-image:
+    linear-gradient(to right,
+      rgba(15, 23, 42, 0.66) 0%,
+      rgba(15, 23, 42, 0.45) 20%,
+      rgba(15, 23, 42, 0.18) 44%,
+      rgba(15, 23, 42, 0.04) 70%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(148, 163, 184, 0.32) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(148, 163, 184, 0.32) 50%,
+      rgba(148, 163, 184, 0.32) 75%,
+      transparent 75%
+    );
+  background-size: 100% 100%, 12px 12px;
+  background-repeat: no-repeat, repeat;
 }
 
 .dark .search-form .icon-item:hover .icon-preview {
