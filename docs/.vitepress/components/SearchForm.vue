@@ -222,6 +222,7 @@ onMounted(async () => {
     // Enrichir les icônes avec les informations générées si elles manquent
     icons.value = cloudflareIcons.map(icon => ({
       ...icon,
+      preview: normalizeSvg(icon.preview), // Normaliser le SVG pour un affichage correct
       description: icon.description || generateDescription(icon.name),
       culturalContext: icon.culturalContext || generateCulturalContext(icon.name),
       tags: icon.tags || generateTags(icon.name),
@@ -240,6 +241,39 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+// Fonction pour normaliser les SVG et assurer un affichage correct
+function normalizeSvg(svgString) {
+  if (!svgString) return svgString
+  
+  // Créer un parser DOM temporaire
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(svgString, 'image/svg+xml')
+  const svg = doc.querySelector('svg')
+  
+  if (!svg) return svgString
+  
+  // Forcer un viewBox si absent
+  if (!svg.hasAttribute('viewBox')) {
+    const width = svg.getAttribute('width') || '24'
+    const height = svg.getAttribute('height') || '24'
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
+  }
+  
+  // Supprimer les attributs width et height pour permettre le scaling
+  svg.removeAttribute('width')
+  svg.removeAttribute('height')
+  
+  // S'assurer que preserveAspectRatio est défini
+  if (!svg.hasAttribute('preserveAspectRatio')) {
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
+  }
+  
+  // Ajouter une classe pour le styling
+  svg.setAttribute('class', 'normalized-svg')
+  
+  return svg.outerHTML
+}
 
 // Fonction pour générer une description à partir du nom de l'icône
 function generateDescription(iconName) {
@@ -322,6 +356,7 @@ function getFallbackIcons() {
   // Enrichir chaque icône avec les informations générées
   return icons.map(icon => ({
     ...icon,
+    preview: normalizeSvg(icon.preview), // Normaliser le SVG
     description: generateDescription(icon.name),
     category: 'Nature',
     tags: generateTags(icon.name),
@@ -807,18 +842,33 @@ const clearAllFilters = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  padding: 8px;
 }
 
-.icon-svg svg {
+.icon-svg :deep(svg) {
+  width: 100% !important;
+  height: 100% !important;
   max-width: 100%;
   max-height: 100%;
-  width: auto;
-  height: auto;
   object-fit: contain;
   color: var(--vp-c-text-1);
   fill: currentColor;
   display: block;
+}
+
+.icon-svg :deep(.normalized-svg) {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.icon-svg :deep(svg path),
+.icon-svg :deep(svg circle),
+.icon-svg :deep(svg rect),
+.icon-svg :deep(svg ellipse),
+.icon-svg :deep(svg line),
+.icon-svg :deep(svg polyline),
+.icon-svg :deep(svg polygon) {
+  vector-effect: non-scaling-stroke;
 }
 
 .icon-name-label {
@@ -1007,22 +1057,33 @@ const clearAllFilters = () => {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
-.icon-display svg {
+.icon-display :deep(svg) {
+  width: 100% !important;
+  height: 100% !important;
   max-width: 100%;
   max-height: 100%;
-  width: auto;
-  height: auto;
   object-fit: contain;
   color: var(--vp-c-text-1);
   fill: currentColor;
   transition: all 0.3s ease;
+  display: block;
 }
 
-.large-icon-preview.large-size .icon-display svg {
-  width: 80%;
-  height: 80%;
+.large-icon-preview.large-size .icon-display {
+  padding: 40px;
+}
+
+.icon-display :deep(svg path),
+.icon-display :deep(svg circle),
+.icon-display :deep(svg rect),
+.icon-display :deep(svg ellipse),
+.icon-display :deep(svg line),
+.icon-display :deep(svg polyline),
+.icon-display :deep(svg polygon) {
+  vector-effect: non-scaling-stroke;
 }
 
 .size-toggle-button {
