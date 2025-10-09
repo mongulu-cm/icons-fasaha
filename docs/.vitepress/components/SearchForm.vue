@@ -190,7 +190,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick, watch } from 'vue'
 import { loadIconsFromCloudflare } from './cloudflare-utils.js'
 
 // Données réactives
@@ -209,6 +209,39 @@ const isLargePreview = ref(false)
 const selectedStyle = ref('Tous')
 const viewMode = ref('grid')
 const availableStyles = ref(['Tous', 'Solid', 'Regular', 'Light', 'Thin'])
+
+// Icônes filtrées selon la recherche et les filtres
+const filteredIcons = computed(() => {
+  let filtered = icons.value
+
+  // Filtre par recherche
+  if (searchQuery.value.trim()) {
+    const query = searchQuery.value.toLowerCase().trim()
+    filtered = filtered.filter(icon => {
+      return (
+        icon.name.toLowerCase().includes(query) ||
+        icon.description.toLowerCase().includes(query) ||
+        icon.tags.some(tag => tag.toLowerCase().includes(query)) ||
+        icon.category.toLowerCase().includes(query)
+      )
+    })
+  }
+
+  // Filtre par style (pour l'instant, on garde tous les styles)
+  // Plus tard, on pourra ajouter la logique de filtrage par style
+
+  return filtered
+})
+
+// Vérifier s'il y a des filtres actifs
+const hasActiveFilters = computed(() => {
+  return searchQuery.value.trim() || selectedStyle.value !== 'Tous'
+})
+
+// Watcher pour ajuster les SVG quand les données changent
+watch([() => filteredIcons.value, () => selectedIcon.value, () => viewMode.value], () => {
+  fitAllRenderedSvgs()
+})
 
 // Charger les données depuis Cloudflare R2
 onMounted(async () => {
@@ -240,6 +273,37 @@ onMounted(async () => {
   } finally {
     loading.value = false
   }
+})
+
+// Ajustement dynamique: recadrer le viewBox selon le contenu réel (getBBox)
+function fitSvgToContent(svg) {
+  try {
+    // Forcer des styles de base
+    svg.removeAttribute('width')
+    svg.removeAttribute('height')
+    svg.style.width = '100%'
+    svg.style.height = '100%'
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
+
+    // Calculer le bounding box réel des éléments
+    const bbox = svg.getBBox()
+    if (bbox && isFinite(bbox.width) && bbox.width > 0 && isFinite(bbox.height) && bbox.height > 0) {
+      svg.setAttribute('viewBox', `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`)
+    }
+  } catch (e) {
+    // Ignorer silencieusement si le SVG n'est pas encore dans le DOM ou getBBox échoue
+  }
+}
+
+function fitAllRenderedSvgs() {
+  nextTick(() => {
+    const svgs = document.querySelectorAll('.icon-svg svg, .icon-display svg')
+    svgs.forEach((svg) => fitSvgToContent(svg))
+  })
+}
+
+onMounted(() => {
+  fitAllRenderedSvgs()
 })
 
 // Fonction pour normaliser les SVG et assurer un affichage correct
@@ -364,34 +428,6 @@ function getFallbackIcons() {
     usageExample: `import { ${icon.name} } from 'icons-fasaha';\n\n<${icon.name} size={32} color="#8B4513" />`
   }))
 }
-
-// Icônes filtrées selon la recherche et les filtres
-const filteredIcons = computed(() => {
-  let filtered = icons.value
-
-  // Filtre par recherche
-  if (searchQuery.value.trim()) {
-    const query = searchQuery.value.toLowerCase().trim()
-    filtered = filtered.filter(icon => {
-      return (
-        icon.name.toLowerCase().includes(query) ||
-        icon.description.toLowerCase().includes(query) ||
-        icon.tags.some(tag => tag.toLowerCase().includes(query)) ||
-        icon.category.toLowerCase().includes(query)
-      )
-    })
-  }
-
-  // Filtre par style (pour l'instant, on garde tous les styles)
-  // Plus tard, on pourra ajouter la logique de filtrage par style
-
-  return filtered
-})
-
-// Vérifier s'il y a des filtres actifs
-const hasActiveFilters = computed(() => {
-  return searchQuery.value.trim() || selectedStyle.value !== 'Tous'
-})
 
 // Méthodes
 const handleSearch = () => {
