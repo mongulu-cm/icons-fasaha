@@ -1,39 +1,50 @@
-// Configuration Cloudflare R2 - Exemple
-// Copiez ce fichier vers cloudflare-config.js et remplacez par vos vraies valeurs
+/**
+ * Exemple de configuration Cloudflare R2.
+ *
+ * Les identifiants sensibles sont désormais chargés via des variables
+ * d'environnement. Pour configurer le projet :
+ *
+ * 1. Copiez le fichier `.env.example` vers `.env`
+ *    cp .env.example .env
+ *
+ * 2. Renseignez vos identifiants Cloudflare dans `.env`
+ *    - CLOUDFLARE_ACCOUNT_ID
+ *    - CLOUDFLARE_ACCESS_KEY_ID
+ *    - CLOUDFLARE_SECRET_ACCESS_KEY
+ *    - CLOUDFLARE_BUCKET_NAME
+ *    - CLOUDFLARE_BASE_URL
+ *    - CLOUDFLARE_AUTH_TOKEN
+ *
+ * 3. Facultatif : mettez à jour la liste des icônes disponibles
+ *    via CLOUDFLARE_AVAILABLE_ICONS (séparées par des virgules).
+ *
+ * 4. Exécutez les scripts Cloudflare comme auparavant :
+ *    npm run cloudflare:test
+ *    npm run cloudflare:upload
+ *
+ * Ce fichier exporte uniquement la liste par défaut des icônes afin
+ * de documenter les noms utilisés dans le bucket.
+ */
 
-export const CLOUDFLARE_CONFIG = {
-  // Informations du compte Cloudflare
-  accountId: 'your-cloudflare-account-id',
-
-  // Clés d'accès (à obtenir depuis le dashboard Cloudflare)
-  accessKeyId: 'your-access-key-id',
-  secretAccessKey: 'your-secret-access-key',
-
-  // Nom du bucket R2
-  bucketName: 'icons-fasaha',
-
-  // URL de base pour accéder aux fichiers
-  baseUrl: 'https://your-account-id.r2.cloudflarestorage.com/icons-fasaha',
-
-  // Liste des icônes disponibles
-  availableIcons: [
-    'elephant',
-    'baobab',
-    'drum',
-    'chefferie',
-    'emblemefoumban',
-    'masktukah'
-  ]
-}
-
-// Instructions d'installation :
-// 1. Créez un compte Cloudflare (https://www.cloudflare.com/)
-// 2. Activez Cloudflare R2 (https://developers.cloudflare.com/r2/)
-// 3. Créez un bucket nommé "icons-fasaha"
-// 4. Générez des clés d'accès API (https://developers.cloudflare.com/r2/api/tokens/)
-// 5. Uploadez vos fichiers SVG dans le bucket
-// 6. Copiez ce fichier vers cloudflare-config.js avec vos vraies valeurs
-// 7. Importez dans vos composants : import { CLOUDFLARE_CONFIG } from '../cloudflare-config.js'
-
-// Pour tester la connexion :
-// Vous pouvez utiliser l'API de test fournie dans cloudflare-utils.js
+export const DEFAULT_AVAILABLE_ICONS = [
+  'google-fonts-icon-calebasse-bw',
+  'google-fonts-icon-calebasse',
+  'google-fonts-icon-cloche-base-bw',
+  'google-fonts-icon-cloche-double',
+  'google-fonts-icon-embleme-foumban-bw',
+  'google-fonts-icon-embleme-foumban',
+  'google-fonts-icon-masque-elephant-bw',
+  'google-fonts-icon-masque-elephant',
+  'google-fonts-icon-entree-chefferie-bw',
+  'google-fonts-icon-entree-chefferie',
+  'google-fonts-icon-calebasse-perlee1-bw',
+  'google-fonts-icon-calebasse-perlee1',
+  'google-fonts-icon-calebasse-perlee2-bw',
+  'google-fonts-icon-calebasse-perlee2',
+  'google-fonts-icon-calebasse-perlee3-bw',
+  'google-fonts-icon-calebasse-perlee3',
+  'google-fonts-icon-calebasse-perlee4-bw',
+  'google-fonts-icon-calebasse-perlee4',
+  'google-fonts-icon-masque-batcham-bw',
+  'google-fonts-icon-masque-batcham'
+];

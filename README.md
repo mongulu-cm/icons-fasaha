@@ -38,7 +38,7 @@ Les icônes sont maintenant stockées sur **Cloudflare R2** pour une distributio
 
 ### Configuration requise
 
-1. **Clés d'accès Cloudflare** : Configurez `cloudflare-config.js` avec vos vraies valeurs
+1. **Clés d'accès Cloudflare** : Copiez `.env.example` vers `.env` et renseignez vos valeurs
 2. **Bucket R2** : Créez un bucket nommé `icons-fasaha`
 3. **Upload des fichiers** : Uploadez vos fichiers SVG dans le bucket
 

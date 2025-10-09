@@ -1,2 +1,14 @@
+# Dependencies
 node_modules
-dist
+
+# Build outputs (ignore entire directories and all their contents)
+dist/
+dist/**
+
+# Documentation site and all files inside
+docs/
+docs/**
+
+# Environment files
+.env
+.env.local

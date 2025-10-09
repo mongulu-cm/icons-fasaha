@@ -1,1 +1,0 @@
-import{_ as a,c as i,o as e,ag as n}from"./chunks/framework.D_DpxHdS.js";const u=JSON.parse('{"title":"Icons Fasaha","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"index.md"}'),t={name:"index.md"};function r(l,s,p,h,o,d){return e(),i("div",null,[...s[0]||(s[0]=[n("",17)])])}const k=a(t,[["render",r]]);export{u as __pageData,k as default};

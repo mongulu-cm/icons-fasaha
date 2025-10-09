@@ -14,18 +14,22 @@ Ce projet utilise maintenant **Cloudflare R2** pour stocker et distribuer les ic
 
 ### 1. Informations de connexion
 
-Les icônes sont stockées dans Cloudflare R2 avec cette configuration :
+Les identifiants Cloudflare sont désormais chargés depuis des variables
+d'environnement. Créez un fichier `.env` à partir de `.env.example` et
+renseignez les clés suivantes :
 
-```javascript
-// Dans cloudflare-config.js
-export const CLOUDFLARE_CONFIG = {
-  accountId: '2a3427fe121675c28f8b777abf693478',
-  accessKeyId: '__REDACTED_TOKEN__',
-  secretAccessKey: '__REDACTED_TOKEN__',
-  bucketName: 'icons-fasaha',
-  baseUrl: 'https://2a3427fe121675c28f8b777abf693478.r2.cloudflarestorage.com/icons-fasaha'
-}
+```bash
+# .env
+CLOUDFLARE_ACCOUNT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CLOUDFLARE_ACCESS_KEY_ID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CLOUDFLARE_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CLOUDFLARE_BUCKET_NAME=icons-fasaha
+CLOUDFLARE_BASE_URL=https://<votre-domaine>/icons-fasaha
+CLOUDFLARE_AUTH_TOKEN=<jeton-bearer-ou-token-access>
 ```
+
+Le fichier `cloudflare-config.mjs` se charge ensuite de lire ces
+variables et de les exposer au code applicatif.
 
 ### 2. Structure du bucket
 
@@ -78,7 +82,7 @@ Le système affiche des logs détaillés lors du chargement :
 ```
 🔗 Chargement des icônes depuis Cloudflare R2...
 📦 Bucket: icons-fasaha
-🔗 Base URL: https://2a3427fe121675c28f8b777abf693478.r2.cloudflarestorage.com/icons-fasaha
+🔗 Base URL: https://<votre-domaine>/icons-fasaha
 📥 Chargement de elephant.svg...
 ✅ elephant.svg chargé (2847 caractères)
 📥 Chargement de baobab.svg...
@@ -88,7 +92,7 @@ Le système affiche des logs détaillés lors du chargement :
 
 ## 🔒 Sécurité
 
-- **Clés d'accès** : Stockées dans `cloudflare-config.js` (à sécuriser)
+- **Clés d'accès** : Stockées dans `.env` (ne jamais le commiter)
 - **Accès contrôlé** : Seules les requêtes autorisées peuvent accéder aux fichiers
 - **HTTPS obligatoire** : Toutes les connexions sont sécurisées
 
@@ -111,7 +115,7 @@ Le système affiche des logs détaillés lors du chargement :
 ```
 
 **Solutions :**
-1. Vérifiez les clés d'accès dans `cloudflare-config.js`
+1. Vérifiez les clés d'accès dans votre fichier `.env`
 2. Vérifiez que le bucket `icons-fasaha` existe
 3. Vérifiez que les fichiers SVG sont uploadés
 4. Testez avec `npm run cloudflare:test`
@@ -134,8 +138,8 @@ Le système affiche des logs détaillés lors du chargement :
 ```
 
 **Solutions :**
-1. Créez le fichier `cloudflare-config.js` avec vos vraies valeurs
-2. Utilisez le fichier exemple : `cp cloudflare-config.example.js cloudflare-config.js`
+1. Créez le fichier `.env` à partir de `.env.example`
+2. Renseignez toutes les variables Cloudflare requises dans `.env`
 
 ## 📚 Ressources
 

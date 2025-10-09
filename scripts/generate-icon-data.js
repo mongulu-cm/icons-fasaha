@@ -19,6 +19,58 @@ function log(message, color = 'reset') {
   console.log(`${colors[color]}${message}${colors.reset}`);
 }
 
+// Répertoires où chercher les fichiers SVG originaux
+const svgSearchDirectories = [
+  path.join(__dirname, '../svgs'),
+  path.join(__dirname, '../assets/svg')
+];
+
+// Nettoie le nom d'un fichier SVG pour pouvoir le comparer au nom du composant
+function cleanName(filename) {
+  return filename
+    .replace('.svg', '')
+    .replace(/[^a-zA-Z0-9]/g, '')
+    .replace(/^[0-9]/, '') // Enlever les chiffres au début
+    .split('')
+    .map((char, index) => (index === 0 ? char.toUpperCase() : char))
+    .join('');
+}
+
+// Parcourt récursivement un répertoire et construit une table { nomCanonique: chemin }
+function collectSvgFiles(directory) {
+  const map = {};
+
+  if (!fs.existsSync(directory)) {
+    return map;
+  }
+
+  const entries = fs.readdirSync(directory, { withFileTypes: true });
+
+  entries.forEach((entry) => {
+    const fullPath = path.join(directory, entry.name);
+
+    if (entry.isDirectory()) {
+      Object.assign(map, collectSvgFiles(fullPath));
+      return;
+    }
+
+    if (entry.isFile() && entry.name.toLowerCase().endsWith('.svg')) {
+      const key = cleanName(entry.name).toLowerCase();
+      map[key] = fullPath;
+    }
+  });
+
+  return map;
+}
+
+// Construit la table complète de correspondance pour retrouver les fichiers SVG
+function buildSvgLookup() {
+  return svgSearchDirectories.reduce((lookup, directory) => {
+    Object.assign(lookup, collectSvgFiles(directory));
+    return lookup;
+  }, {});
+}
+
 // Métadonnées des icônes
 const iconMetadata = {
   'Chefferie': {
@@ -90,9 +142,6 @@ function readSvgFile(filePath) {
     
     // Nettoyer le contenu
     svgContent = svgContent.replace(/<!--[\s\S]*?-->/g, '');
-    svgContent = svgContent.replace(/(\w+)-(\w+)=/g, (match, p1, p2) => {
-      return p1 + p2.charAt(0).toUpperCase() + p2.slice(1) + '=';
-    });
     svgContent = svgContent.replace(/\s+/g, ' ').trim();
     
     const viewBoxMatch = content.match(/viewBox="([^"]*)"/);
@@ -117,10 +166,11 @@ function generatePreview(svgContent, viewBox) {
 function generateIconData() {
   const iconsDir = path.join(__dirname, '../src/icons');
   const iconsData = [];
+  const svgLookup = buildSvgLookup();
   
   if (!fs.existsSync(iconsDir)) {
     log('❌ Le répertoire src/icons n\'existe pas', 'red');
-    return;
+    return iconsData;
   }
   
   const files = fs.readdirSync(iconsDir).filter(file => file.endsWith('.tsx') && file !== 'index.ts');
@@ -137,15 +187,32 @@ function generateIconData() {
     }
     
     // Lire le fichier SVG correspondant
-    const svgFile = path.join(__dirname, '../assets/svg', `${iconName.toLowerCase()}.svg`);
     let svgData = null;
+
+    const metadataSvgFile = metadata?.svgFile
+      ? (path.isAbsolute(metadata.svgFile)
+        ? metadata.svgFile
+        : path.join(__dirname, '..', metadata.svgFile))
+      : null;
     
-    if (fs.existsSync(svgFile)) {
-      svgData = readSvgFile(svgFile);
+    if (metadataSvgFile && fs.existsSync(metadataSvgFile)) {
+      svgData = readSvgFile(metadataSvgFile);
     }
     
     if (!svgData) {
-      log(`⚠️  Fichier SVG manquant pour ${iconName}`, 'yellow');
+      const svgKey = metadata?.svgFile
+        ? cleanName(path.basename(metadata.svgFile)).toLowerCase()
+        : iconName.toLowerCase();
+      
+      const svgPath = svgLookup[svgKey];
+      
+      if (svgPath && fs.existsSync(svgPath)) {
+        svgData = readSvgFile(svgPath);
+      }
+    }
+
+    if (!svgData) {
+      log(`⚠️  Fichier SVG manquant pour ${iconName} (recherchés dans: ${svgSearchDirectories.join(', ')})`, 'yellow');
       return;
     }
     

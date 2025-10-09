@@ -3,6 +3,10 @@
 // Script de débogage détaillé pour Cloudflare R2
 
 const https = require('https');
+const fs = require('fs');
+const path = require('path');
+const { pathToFileURL } = require('url');
+const { loadProjectEnv } = require('./utils/load-env.js');
 
 // Couleurs pour la console
 const colors = {
@@ -21,15 +25,25 @@ function log(message, color = 'reset') {
 }
 
 // Charger la configuration depuis le fichier de configuration
+loadProjectEnv();
+
 let CLOUDFLARE_CONFIG;
 
-try {
-  CLOUDFLARE_CONFIG = require('../cloudflare-config.js').CLOUDFLARE_CONFIG;
-  log('✅ Configuration chargée avec succès', 'green');
-} catch (error) {
-  log('❌ Impossible de charger la configuration Cloudflare', 'red');
-  log('💡 Créez le fichier cloudflare-config.js avec vos vraies valeurs', 'yellow');
-  process.exit(1);
+async function loadCloudflareConfig() {
+  if (CLOUDFLARE_CONFIG) return CLOUDFLARE_CONFIG;
+
+  try {
+    const module = await import(
+      pathToFileURL(path.resolve(__dirname, '../cloudflare-config.mjs'))
+    );
+    CLOUDFLARE_CONFIG = module.CLOUDFLARE_CONFIG || module.default;
+    log('✅ Configuration chargée avec succès', 'green');
+    return CLOUDFLARE_CONFIG;
+  } catch (error) {
+    log('❌ Impossible de charger la configuration Cloudflare', 'red');
+    log('💡 Vérifiez que le fichier .env est présent et correctement rempli', 'yellow');
+    throw error;
+  }
 }
 
 /**
@@ -49,8 +63,8 @@ function testConfiguration() {
   let allValid = true;
 
   requiredFields.forEach(field => {
-    if (field.value && field.value !== `your-${field.name}`) {
-      log(`✅ ${field.name}: ${field.value.substring(0, 20)}...`, 'green');
+    if (field.value && String(field.value).trim()) {
+      log(`✅ ${field.name}: ${String(field.value).substring(0, 20)}...`, 'green');
     } else {
       log(`❌ ${field.name}: Valeur manquante ou par défaut`, 'red');
       allValid = false;
@@ -232,11 +246,23 @@ async function main() {
   log('🔍 Débogage Cloudflare R2 - Icons Fasaha', 'bright');
   log('=' .repeat(50), 'bright');
 
+  try {
+    await loadCloudflareConfig();
+  } catch {
+    process.exit(1);
+  }
+
   // Test 1: Configuration
   const configValid = testConfiguration();
 
   if (!configValid) {
     log('\n❌ Configuration invalide. Arrêt du débogage.', 'red');
+    const envPath = path.resolve(__dirname, '../.env');
+    if (!process.env.CLOUDFLARE_ACCOUNT_ID && !fs.existsSync(envPath)) {
+      log('📄 Aucune variable d\'environnement détectée. Créez le fichier .env à partir de .env.example.', 'yellow');
+    } else {
+      log('📄 Complétez le fichier .env avec vos identifiants Cloudflare validés.', 'yellow');
+    }
     return;
   }
 

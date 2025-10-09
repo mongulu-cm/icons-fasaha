@@ -5,6 +5,8 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
+const { pathToFileURL } = require('url');
+const { loadProjectEnv } = require('./utils/load-env.js');
 
 // Couleurs pour la console
 const colors = {
@@ -23,14 +25,24 @@ function log(message, color = 'reset') {
 }
 
 // Charger la configuration depuis le fichier de configuration
+loadProjectEnv();
+
 let CLOUDFLARE_CONFIG;
 
-try {
-  CLOUDFLARE_CONFIG = require('../cloudflare-config.js').CLOUDFLARE_CONFIG;
-} catch (error) {
-  log('❌ Impossible de charger la configuration Cloudflare', 'red');
-  log('💡 Créez le fichier cloudflare-config.js avec vos vraies valeurs', 'yellow');
-  process.exit(1);
+async function loadCloudflareConfig() {
+  if (CLOUDFLARE_CONFIG) return CLOUDFLARE_CONFIG;
+
+  try {
+    const module = await import(
+      pathToFileURL(path.resolve(__dirname, '../cloudflare-config.mjs'))
+    );
+    CLOUDFLARE_CONFIG = module.CLOUDFLARE_CONFIG || module.default;
+    return CLOUDFLARE_CONFIG;
+  } catch (error) {
+    log('❌ Impossible de charger la configuration Cloudflare', 'red');
+    log('💡 Vérifiez que le fichier .env est présent et correctement rempli', 'yellow');
+    throw error;
+  }
 }
 
 /**
@@ -147,7 +159,7 @@ function showInstructions() {
   log('   🎨 Ajoutez vos fichiers SVG (elephant.svg, baobab.svg, etc.)', 'cyan');
 
   log('\n2️⃣  Configurez Cloudflare:', 'cyan');
-  log('   🔑 Utilisez le fichier cloudflare-config.js existant', 'cyan');
+  log('   🔑 Copiez .env.example vers .env et renseignez vos identifiants', 'cyan');
   log('   📦 Vérifiez que le bucket "icons-fasaha" existe', 'cyan');
 
   log('\n3️⃣  Lancez l\'upload:', 'cyan');
@@ -173,10 +185,23 @@ async function main() {
     return;
   }
 
+  try {
+    await loadCloudflareConfig();
+  } catch {
+    process.exit(1);
+  }
+
   // Vérifier la configuration
-  if (!CLOUDFLARE_CONFIG.accountId || !CLOUDFLARE_CONFIG.accessKeyId) {
+  const requiredKeys = ['accountId', 'accessKeyId', 'secretAccessKey', 'bucketName', 'baseUrl'];
+  const missingKeys = requiredKeys.filter((key) => {
+    const value = CLOUDFLARE_CONFIG[key];
+    return !value || !String(value).trim();
+  });
+
+  if (missingKeys.length) {
     log('❌ Configuration Cloudflare incomplète', 'red');
-    log('💡 Vérifiez le fichier cloudflare-config.js', 'yellow');
+    log(`💡 Variables manquantes: ${missingKeys.join(', ')}`, 'yellow');
+    log('📄 Complétez votre fichier .env avec les informations Cloudflare', 'yellow');
     return;
   }
 
